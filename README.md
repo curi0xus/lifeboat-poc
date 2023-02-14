@@ -1,4 +1,4 @@
-### Lifeboat POC To Do List
+### Lifeboat POC To Do List (Bootstrapped with https://github.com/ixartz/Next-js-Boilerplate)
 
 - [ ] Wgmi setup and installation
 - [ ] Verify NFT and log in
