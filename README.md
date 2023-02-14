@@ -1,6 +1,6 @@
 ### Lifeboat POC To Do List (Bootstrapped with https://github.com/ixartz/Next-js-Boilerplate)
 
-- [ ] Wgmi setup and installation
+- [X] Wgmi setup and installation
 - [ ] Verify NFT and log in
 - [ ] Simple backend sign nonce flow using NextJS's API 
 - [ ] Create protected endpoints to pull hardcoded data
