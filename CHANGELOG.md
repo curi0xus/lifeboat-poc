@@ -1,3 +1,15 @@
+# 1.0.0 (2023-02-14)
+
+
+### Bug Fixes
+
+* try write permissions ([eb843e3](https://github.com/waichung/lifeboat-poc/commit/eb843e3b62f1c2fb4c83a30371b94556f51dbd2c))
+
+
+### Features
+
+* fix test ([de4da4d](https://github.com/waichung/lifeboat-poc/commit/de4da4d4ada848648e6432a5c36417b74bf2d331))
+
 # [3.7.0](https://github.com/ixartz/Next-js-Boilerplate/compare/v3.6.0...v3.7.0) (2023-02-05)
 
 
