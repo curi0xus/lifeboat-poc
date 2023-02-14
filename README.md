@@ -7,3 +7,4 @@
 - [ ] Populate frontend with data
 - [ ] Style data
 - [ ] Build filter and search 
+- [ ] Build pipelines to push to vercel 
