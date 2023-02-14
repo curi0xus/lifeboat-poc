@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/waichung/lifeboat-poc/compare/v1.0.0...v1.1.0) (2023-02-14)
+
+
+### Features
+
+* configure wagmi ([86f871a](https://github.com/waichung/lifeboat-poc/commit/86f871af840d50e8a99eb33471a8cb71e8ed048f))
+
 # 1.0.0 (2023-02-14)
 
 
