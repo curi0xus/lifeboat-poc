@@ -11,6 +11,11 @@ const CONTENT_LIST = [
     holdings and verify you have access to the platform.
   </>,
   <>
+    If you own a Genesis Pass or Lifeboat Pass in another wallet, you&apos;ll
+    need to transfer it to this wallet or register with your own wallet to
+    create an account.
+  </>,
+  <>
     Signing costs you no fees and does not issue a transaction on the
     Blockchain. Learn more about our approach to security{' '}
     <a

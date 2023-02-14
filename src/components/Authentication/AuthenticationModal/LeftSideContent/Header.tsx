@@ -7,6 +7,7 @@ type HeaderProps = {
 const HEADER_CONTENT_LIST = [
   'Stop drowning in announcements just to keep up with your NFTs.',
   "Let's connect your web3 wallet.",
+  'Uh, oh. Your connected wallest isn&apost eligible for Lifeboat.',
   'Sign the message to log in',
 ];
 

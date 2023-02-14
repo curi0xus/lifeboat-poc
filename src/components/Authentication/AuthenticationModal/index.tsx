@@ -7,28 +7,26 @@ import RightSideContent from './RightSideContent';
 const AuthModal = () => {
   const [contentType, setContentType] = useState(0);
 
-  const onBackHandler =
+  const initBackHandler =
     (index: number) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
-      const toIndex = Math.max(0, index - 1);
-      setContentType(toIndex);
+      setContentType(index);
     };
 
-  const onForwardHandler =
+  const initForwardHandler =
     (index: number) => (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
-      const toIndex = Math.min(2, index + 1);
-      setContentType(toIndex);
+      setContentType(index);
     };
   return (
     <ModalContainer>
       <>
         <LeftSideContent
-          onBack={onBackHandler(contentType)}
+          initBackHandler={initBackHandler}
           contentType={contentType}
         />
         <RightSideContent
-          onForward={onForwardHandler(contentType)}
+          initForwardHandler={initForwardHandler}
           contentType={contentType}
         />
       </>
