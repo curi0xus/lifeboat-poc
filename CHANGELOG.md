@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/waichung/lifeboat-poc/compare/v1.2.0...v1.3.0) (2023-02-14)
+
+
+### Features
+
+* make go forward and back handlers more flexible ([84c1d9d](https://github.com/waichung/lifeboat-poc/commit/84c1d9d3cc38a2d80f40e49ca9a415707945d406))
+
 # [1.2.0](https://github.com/waichung/lifeboat-poc/compare/v1.1.0...v1.2.0) (2023-02-14)
 
 
