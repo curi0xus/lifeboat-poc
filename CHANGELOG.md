@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/waichung/lifeboat-poc/compare/v1.1.0...v1.2.0) (2023-02-14)
+
+
+### Features
+
+* complete static user login flows ([9fa2034](https://github.com/waichung/lifeboat-poc/commit/9fa203441f9bf8a0f686fce598e024d415b60bd1))
+
 # [1.1.0](https://github.com/waichung/lifeboat-poc/compare/v1.0.0...v1.1.0) (2023-02-14)
 
 
