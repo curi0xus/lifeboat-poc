@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/waichung/lifeboat-poc/compare/v1.3.0...v1.4.0) (2023-02-15)
+
+
+### Features
+
+* verifies nft ownership ([4fc70e4](https://github.com/waichung/lifeboat-poc/commit/4fc70e41a568961fcf296fa69b72d308431cf970))
+
 # [1.3.0](https://github.com/waichung/lifeboat-poc/compare/v1.2.0...v1.3.0) (2023-02-14)
 
 
