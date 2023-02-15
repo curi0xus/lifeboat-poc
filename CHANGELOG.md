@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/waichung/lifeboat-poc/compare/v1.4.0...v1.5.0) (2023-02-15)
+
+
+### Features
+
+* authenticate with server signing nonce with private keys ([98ed947](https://github.com/waichung/lifeboat-poc/commit/98ed947fcdfcbbc8d8c90dfab37df1726369261e))
+
 # [1.4.0](https://github.com/waichung/lifeboat-poc/compare/v1.3.0...v1.4.0) (2023-02-15)
 
 
