@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/waichung/lifeboat-poc/compare/v1.6.0...v1.7.0) (2023-02-15)
+
+
+### Features
+
+* fix verify and improve ux ([53bca87](https://github.com/waichung/lifeboat-poc/commit/53bca870d4b6e5b74d0520b9065d99f85e20938c))
+
 # [1.6.0](https://github.com/waichung/lifeboat-poc/compare/v1.5.0...v1.6.0) (2023-02-15)
 
 
