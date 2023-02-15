@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/waichung/lifeboat-poc/compare/v1.5.0...v1.6.0) (2023-02-15)
+
+
+### Features
+
+* refactor and update todo list ([288bd78](https://github.com/waichung/lifeboat-poc/commit/288bd7802674ffd9c45ea1a7ab3a8a2c919d5224))
+
 # [1.5.0](https://github.com/waichung/lifeboat-poc/compare/v1.4.0...v1.5.0) (2023-02-15)
 
 
