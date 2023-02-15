@@ -2,9 +2,10 @@
 
 - [X] Wgmi setup and installation
 - [X] Connects wallet and retrieves NFT ownership information from RPC provider
-- [ ] Sign & Verify, Get user information (Nonce, Verify, User)
-- [ ] Logs user in and logs user out
+- [X] Sign & Verify, Get user information (Nonce, Verify, User)
+- [X] Logs user in and logs user out
+- [ ] Refactor & introduce redux
 - [ ] Populate frontend with hardcoded non-user data
 - [ ] Style it up!
 - [ ] Build filter and search (Good to have)
-- [ ] Build pipelines to push to vercel 
+- [X] Build pipelines to push to vercel 

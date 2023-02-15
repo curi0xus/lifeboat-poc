@@ -1,3 +1,4 @@
+import type { ConnectResult } from '@wagmi/core';
 import { multicall } from '@wagmi/core';
 import type { AbiError, AbiEvent, AbiFunction, Narrow } from 'abitype';
 import React from 'react';
@@ -26,16 +27,9 @@ const ConnectWalletButtons = ({
     functionName: 'totalSupply',
   });
 
-  const { address, isConnected } = useAccount();
-  const { connect, connectors } = useConnect();
-
-  const onMetaMaskClickHandler = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    if (!isConnected) {
-      await connect({ connector: connectors[0] });
-    }
-
+  const checkUserHasAccessPass = async (
+    userAddress: string
+  ): Promise<boolean> => {
     const multicalls = [];
 
     if (
@@ -54,23 +48,44 @@ const ConnectWalletButtons = ({
         // @ts-ignore
         contracts: multicalls,
       });
+      return data.indexOf(userAddress) > -1;
+    }
 
-      const contentIndexToShowNext = data.indexOf(address) > -1 ? 3 : 2;
-      initForwardHandler(contentIndexToShowNext)(e);
+    return false;
+  };
+
+  const { isConnected } = useAccount();
+  const { connect, connectors } = useConnect({
+    async onSuccess(payload: ConnectResult) {
+      const hasAccess: boolean = await checkUserHasAccessPass(payload.account);
+      const contentIndexToShowNext = hasAccess ? 3 : 2;
+      initForwardHandler(contentIndexToShowNext)();
+    },
+  });
+
+  const onMetaMaskClickHandler = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.stopPropagation();
+    if (!isConnected) {
+      await connect({ connector: connectors[0] });
     }
   };
+
   const onCoinbaseClickHandler = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     connect({ connector: connectors[1] });
     initForwardHandler(3)(e);
   };
+
   const onWalletConnectClickHandler = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     connect({ connector: connectors[2] });
     initForwardHandler(3)(e);
   };
+
   return (
     contentType === 1 && (
       <>
