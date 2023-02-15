@@ -15,7 +15,7 @@ const AuthModal = () => {
 
   const initForwardHandler =
     (index: number) => (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.stopPropagation();
+      event?.stopPropagation();
       setContentType(index);
     };
   return (

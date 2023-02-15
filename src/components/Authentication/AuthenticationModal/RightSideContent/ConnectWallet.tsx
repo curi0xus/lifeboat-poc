@@ -1,7 +1,7 @@
 import type { ConnectResult } from '@wagmi/core';
 import { multicall } from '@wagmi/core';
 import type { AbiError, AbiEvent, AbiFunction, Narrow } from 'abitype';
-import React from 'react';
+import React, { useState } from 'react';
 import type { UseContractReadConfig } from 'wagmi';
 import { useAccount, useConnect, useContractRead } from 'wagmi';
 
@@ -21,6 +21,7 @@ const ConnectWalletButtons = ({
   initForwardHandler,
   contentType,
 }: ConnectWalletButtonsProps) => {
+  const [buttonText, setButtonText] = useState<undefined | string>(undefined);
   const { data: totalLifeboatSupply } = useContractRead({
     ...lifeboatContract,
     watch: true,
@@ -36,6 +37,7 @@ const ConnectWalletButtons = ({
       totalLifeboatSupply?.toString() &&
       +totalLifeboatSupply.toString() > 0
     ) {
+      setButtonText('Verifying NFT...');
       for (let i = 1; i < +totalLifeboatSupply!.toString(); i += 1) {
         multicalls.push({
           ...lifeboatContract,
@@ -43,7 +45,6 @@ const ConnectWalletButtons = ({
           args: [i],
         } as UseContractReadConfig);
       }
-
       const data = await multicall({
         // @ts-ignore
         contracts: multicalls,
@@ -54,12 +55,19 @@ const ConnectWalletButtons = ({
     return false;
   };
 
-  const { isConnected } = useAccount();
+  const determineNextContent = async (userAddress: string) => {
+    const hasAccess: boolean = await checkUserHasAccessPass(userAddress);
+    setButtonText(hasAccess ? 'NFT Found!' : 'No NFT!');
+    const contentIndexToShowNext = hasAccess ? 3 : 2;
+    initForwardHandler(contentIndexToShowNext)();
+    setButtonText(undefined);
+  };
+
+  const { address, isConnected } = useAccount();
   const { connect, connectors } = useConnect({
     async onSuccess(payload: ConnectResult) {
-      const hasAccess: boolean = await checkUserHasAccessPass(payload.account);
-      const contentIndexToShowNext = hasAccess ? 3 : 2;
-      initForwardHandler(contentIndexToShowNext)();
+      setButtonText('Connected!');
+      determineNextContent(payload.account);
     },
   });
 
@@ -68,22 +76,11 @@ const ConnectWalletButtons = ({
   ) => {
     e.stopPropagation();
     if (!isConnected) {
+      setButtonText('Connecting...');
       await connect({ connector: connectors[0] });
+    } else {
+      await determineNextContent(address as string);
     }
-  };
-
-  const onCoinbaseClickHandler = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    connect({ connector: connectors[1] });
-    initForwardHandler(3)(e);
-  };
-
-  const onWalletConnectClickHandler = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    connect({ connector: connectors[2] });
-    initForwardHandler(3)(e);
   };
 
   return (
@@ -95,40 +92,12 @@ const ConnectWalletButtons = ({
             onClick={onMetaMaskClickHandler}
             className="ml-1 mt-0 flex w-4/5 flex-row items-center justify-center rounded-full border bg-white px-4 py-2 text-lg transition disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700 sm:flex"
           >
-            <img
+            {/* <img
               className="mr-2 h-9 w-9 rounded-full p-1"
               src="./static/media/metamask-fox.d8733638.svg"
               alt="Metamask logo"
-            />
-            {connectors[0].name}
-          </button>
-        )}
-        {connectors?.[1]?.ready && (
-          <button
-            disabled={!connectors[1].ready}
-            onClick={onCoinbaseClickHandler}
-            className="ml-1 mt-0 flex w-4/5 flex-row items-center justify-center rounded-full border bg-white px-4 py-1 text-lg transition disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700 sm:flex"
-          >
-            <img
-              className="mr-2 h-9 w-9 rounded-full p-1"
-              src="./static/media/coinbase-wallet-dot.ab288c9e.svg"
-              alt="Coinbase Wallet logo"
-            />
-            {connectors[1].name}
-          </button>
-        )}
-        {connectors?.[2]?.ready && (
-          <button
-            disabled={!connectors[2].ready}
-            onClick={onWalletConnectClickHandler}
-            className="ml-1 mt-0 flex w-4/5 flex-row items-center justify-center rounded-full border bg-white px-4 py-1 text-lg transition disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700"
-          >
-            <img
-              className="mr-2 h-9 w-9 rounded-full p-1"
-              src="./static/media/walletconnect-logo.dfa25e47.svg"
-              alt="WalletConnect logo"
-            />
-            {connectors[2].name}
+            /> */}
+            {buttonText || connectors[0].name}
           </button>
         )}
       </>
