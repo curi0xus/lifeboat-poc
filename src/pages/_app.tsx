@@ -7,14 +7,21 @@ import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { publicProvider } from 'wagmi/providers/public';
+// import { alchemyProvider } from 'wagmi/providers/alchemy';
+// import { publicProvider } from 'wagmi/providers/public';
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 const { chains, provider, webSocketProvider } = configureChains(
   [mainnet],
   [
-    alchemyProvider({ apiKey: process.env.ALCHEMY_ACCESS_KEY || '' }),
-    publicProvider(),
+    // alchemyProvider({ apiKey: process.env.ALCHEMY_ACCESS_KEY || '' }),
+    // publicProvider(),
+    jsonRpcProvider({
+      priority: 0,
+      rpc: () => ({
+        http: `https://api.zmok.io/mainnet/hyq8zbasdiz5pgvu`,
+      }),
+    }),
   ]
 );
 

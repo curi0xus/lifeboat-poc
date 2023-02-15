@@ -1,5 +1,13 @@
+import { multicall } from '@wagmi/core';
 import React from 'react';
-import { useConnect } from 'wagmi';
+import { useAccount, useConnect, useContractRead } from 'wagmi';
+
+import LifeboatAbi from '../../../../abi/lifeboat.abi.json';
+
+const lifeboatContract = {
+  address: '0x00aFaAa9635c9c40015eC31f3f2bB1B10c766e58',
+  abi: LifeboatAbi,
+};
 
 type ConnectWalletButtonsProps = {
   contentType: number;
@@ -14,16 +22,43 @@ const ConnectWalletButtons = ({
   initForwardHandler,
   contentType,
 }: ConnectWalletButtonsProps) => {
+  const { data: totalLifeboatSupply } = useContractRead({
+    ...lifeboatContract,
+    functionName: 'totalSupply',
+    watch: true,
+  });
+
+  const { address, isConnected } = useAccount();
   const { connect, connectors } = useConnect();
 
   const onMetaMaskClickHandler = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
-    await connect({ connector: connectors[0] });
-    // checks if there's NFT
-    initForwardHandler(3)(e);
-    // else
-    // initForwardHandler(2)(e);
+    if (!isConnected) {
+      await connect({ connector: connectors[0] });
+    }
+
+    const multicalls = [];
+
+    if (
+      totalLifeboatSupply?.toString() &&
+      +totalLifeboatSupply.toString() > 0
+    ) {
+      for (let i = 1; i < +totalLifeboatSupply!.toString(); i += 1) {
+        multicalls.push({
+          ...lifeboatContract,
+          functionName: 'ownerOf',
+          args: [i],
+        });
+      }
+
+      const data = await multicall({
+        contracts: multicalls,
+      });
+
+      const contentIndexToShowNext = data.indexOf(address) > -1 ? 3 : 2;
+      initForwardHandler(contentIndexToShowNext)(e);
+    }
   };
   const onCoinbaseClickHandler = async (
     e: React.MouseEvent<HTMLButtonElement>

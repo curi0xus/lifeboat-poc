@@ -1,7 +1,7 @@
 ### Lifeboat POC To Do List (Bootstrapped with https://github.com/ixartz/Next-js-Boilerplate)
 
 - [X] Wgmi setup and installation
-- [ ] Connects wallet and retrieves NFT ownership information from RPC provider
+- [X] Connects wallet and retrieves NFT ownership information from RPC provider
 - [ ] Sign & Verify, Get user information (Nonce, Verify, User)
 - [ ] Logs user in and logs user out
 - [ ] Populate frontend with hardcoded non-user data

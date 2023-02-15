@@ -22,6 +22,8 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@wagmi/core": "^0.9.5",
+    "alchemy-sdk": "^2.4.3",
     "ethers": "^5.7.2",
     "next": "^13.1.2",
     "next-seo": "^5.15.0",
