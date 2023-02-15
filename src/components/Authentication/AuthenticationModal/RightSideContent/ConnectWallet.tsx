@@ -14,10 +14,6 @@ type ConnectWalletButtonsProps = {
   initForwardHandler: Function;
 };
 
-// TODO:
-// Connects wallet and checks for NFT
-// If yes, go to sign and verify
-// else go to Buy a pass
 const ConnectWalletButtons = ({
   initForwardHandler,
   contentType,

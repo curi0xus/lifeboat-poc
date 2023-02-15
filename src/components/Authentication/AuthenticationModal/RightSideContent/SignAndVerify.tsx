@@ -1,16 +1,53 @@
 import React from 'react';
-import { useAccount } from 'wagmi';
+import { SiweMessage } from 'siwe';
+import { useAccount, useNetwork, useSignMessage } from 'wagmi';
 
 type SignAndVerifyProps = {
   contentType: number;
 };
 
-// TODO:
-// sign, verify signature and retrieve user information
 const SignAndVerify = ({ contentType }: SignAndVerifyProps) => {
   const { address, isConnected } = useAccount();
-  const onVerifyHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
+  const { chain } = useNetwork();
+  const { signMessageAsync } = useSignMessage();
+
+  const onVerifyHandler = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.stopPropagation();
+
+    try {
+      const nonceRes = await fetch('/api/nonce');
+      const nonce = await nonceRes.text();
+      const chainId = chain?.id;
+      if (!address || !chainId) return;
+
+      // Create SIWE message with pre-fetched nonce and sign with wallet
+      const message = new SiweMessage({
+        domain: window.location.host,
+        address,
+        uri: window.location.origin,
+        version: '1',
+        chainId,
+        nonce,
+      });
+      const signature = await signMessageAsync({
+        message: message.prepareMessage(),
+      });
+
+      // Verify signature
+      const verifyRes = await fetch('/api/verify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message, signature }),
+      });
+
+      if (!verifyRes.ok) throw new Error('Error verifying message');
+    } catch (error: unknown) {
+      console.log('ERROR: SignAndVerify', error);
+    }
   };
   return (
     isConnected &&
