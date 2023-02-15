@@ -20,7 +20,7 @@ const Index = () => {
         const json = await res.json();
         setState((x) => ({ ...x, address: json.address }));
       } catch (_error) {
-        console.log('ERROR: Fetch user failed', _error);
+        // console.log('ERROR: Fetch user failed', _error);
       }
     };
     // 1. page loads

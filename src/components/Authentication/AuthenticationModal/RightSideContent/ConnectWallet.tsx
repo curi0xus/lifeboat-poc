@@ -1,12 +1,14 @@
 import { multicall } from '@wagmi/core';
+import type { AbiError, AbiEvent, AbiFunction, Narrow } from 'abitype';
 import React from 'react';
+import type { UseContractReadConfig } from 'wagmi';
 import { useAccount, useConnect, useContractRead } from 'wagmi';
 
 import LifeboatAbi from '../../../../abi/lifeboat.abi.json';
 
-const lifeboatContract = {
+const lifeboatContract: UseContractReadConfig = {
   address: '0x00aFaAa9635c9c40015eC31f3f2bB1B10c766e58',
-  abi: LifeboatAbi,
+  abi: LifeboatAbi as Narrow<AbiFunction | AbiEvent | AbiError>[],
 };
 
 type ConnectWalletButtonsProps = {
@@ -20,8 +22,8 @@ const ConnectWalletButtons = ({
 }: ConnectWalletButtonsProps) => {
   const { data: totalLifeboatSupply } = useContractRead({
     ...lifeboatContract,
-    functionName: 'totalSupply',
     watch: true,
+    functionName: 'totalSupply',
   });
 
   const { address, isConnected } = useAccount();
@@ -45,10 +47,11 @@ const ConnectWalletButtons = ({
           ...lifeboatContract,
           functionName: 'ownerOf',
           args: [i],
-        });
+        } as UseContractReadConfig);
       }
 
       const data = await multicall({
+        // @ts-ignore
         contracts: multicalls,
       });
 
@@ -75,7 +78,7 @@ const ConnectWalletButtons = ({
           <button
             disabled={!connectors[0].ready}
             onClick={onMetaMaskClickHandler}
-            className="text-primary hover:text-primary-focus border-primary ml-1 mt-0 flex hidden w-4/5 flex-row items-center justify-center rounded-full border bg-white px-4 py-1 py-2 text-lg transition disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700 sm:flex"
+            className="ml-1 mt-0 flex w-4/5 flex-row items-center justify-center rounded-full border bg-white px-4 py-2 text-lg transition disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700 sm:flex"
           >
             <img
               className="mr-2 h-9 w-9 rounded-full p-1"
@@ -89,7 +92,7 @@ const ConnectWalletButtons = ({
           <button
             disabled={!connectors[1].ready}
             onClick={onCoinbaseClickHandler}
-            className="text-primary hover:text-primary-focus border-primary ml-1 mt-0 flex hidden w-4/5 flex-row items-center justify-center rounded-full border bg-white px-4 py-1 py-2 text-lg transition disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700 sm:flex"
+            className="ml-1 mt-0 flex w-4/5 flex-row items-center justify-center rounded-full border bg-white px-4 py-1 text-lg transition disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700 sm:flex"
           >
             <img
               className="mr-2 h-9 w-9 rounded-full p-1"
@@ -103,7 +106,7 @@ const ConnectWalletButtons = ({
           <button
             disabled={!connectors[2].ready}
             onClick={onWalletConnectClickHandler}
-            className="text-primary hover:text-primary-focus border-primary ml-1 mt-0 flex w-4/5 flex-row items-center justify-center rounded-full border bg-white px-4 py-1 py-2 text-lg transition disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700"
+            className="ml-1 mt-0 flex w-4/5 flex-row items-center justify-center rounded-full border bg-white px-4 py-1 text-lg transition disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700"
           >
             <img
               className="mr-2 h-9 w-9 rounded-full p-1"

@@ -13,9 +13,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const siweMessage = new SiweMessage(message);
         const fields = await siweMessage.validate(signature);
 
-        if (fields.nonce !== req.session.nonce)
-          return res.status(422).json({ message: 'Invalid nonce.' });
+        // @ts-ignore
+        if (fields.nonce !== req.session.nonce) {
+          res.status(422).json({ message: 'Invalid nonce.' });
+          return;
+        }
 
+        // @ts-ignore
         req.session.siwe = fields;
         await req.session.save();
         res.json({ ok: true });

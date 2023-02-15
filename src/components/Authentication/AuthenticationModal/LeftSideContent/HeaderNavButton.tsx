@@ -17,7 +17,7 @@ const HeaderNavButton = ({ contentType, onBack }: HeaderNavButtonProps) => {
     <div className="absolute top-4 left-1">
       <button
         onClick={onBack}
-        className="hover:text-primary transition-scale flex w-fit cursor-pointer flex-row items-center px-4 text-gray-400 transition"
+        className="flex w-fit cursor-pointer flex-row items-center px-4 text-gray-400 transition"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

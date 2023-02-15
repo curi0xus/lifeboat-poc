@@ -46,7 +46,7 @@ const SignAndVerify = ({ contentType }: SignAndVerifyProps) => {
 
       if (!verifyRes.ok) throw new Error('Error verifying message');
     } catch (error: unknown) {
-      console.log('ERROR: SignAndVerify', error);
+      // console.log('ERROR: SignAndVerify', error);
     }
   };
   return (
@@ -55,7 +55,7 @@ const SignAndVerify = ({ contentType }: SignAndVerifyProps) => {
     contentType === 3 && (
       <button
         onClick={onVerifyHandler}
-        className="text-primary hover:text-primary-focus border-primary ml-1 mt-5 flex w-4/5 flex-row flex-col items-center justify-center rounded-full border bg-white px-4 py-1 py-2 text-lg transition disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700"
+        className="ml-1 mt-5 flex w-4/5 flex-col items-center justify-center rounded-full border bg-white px-4 py-2 text-lg transition disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700"
       >
         <span>Verify Ownership of</span>
         <span className="inline-flex flex-row">{address}</span>

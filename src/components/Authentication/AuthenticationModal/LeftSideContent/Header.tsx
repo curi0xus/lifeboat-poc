@@ -14,7 +14,7 @@ const HEADER_CONTENT_LIST = [
 const Header = ({ contentType }: HeaderProps) => {
   const headerContent = HEADER_CONTENT_LIST[contentType];
   return (
-    <div className="text-primary mb-1 space-y-2">
+    <div className="mb-1 space-y-2">
       <span className="text-3xl font-bold">
         <span className="hidden sm:inline">{headerContent}</span>
       </span>

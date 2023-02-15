@@ -18,13 +18,7 @@ const CONTENT_LIST = [
   <>
     Signing costs you no fees and does not issue a transaction on the
     Blockchain. Learn more about our approach to security{' '}
-    <a
-      className="text-primary hover:text-primary-focus"
-      href="https://twitter.com/0xQuit/status/1567528224460271617"
-    >
-      here
-    </a>
-    .
+    <a href="https://twitter.com/0xQuit/status/1567528224460271617">here</a>.
   </>,
 ];
 
