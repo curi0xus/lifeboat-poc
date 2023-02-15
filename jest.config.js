@@ -6,6 +6,16 @@ const createJestConfig = nextJest({
 });
 
 const customJestConfig = {
+  transformIgnorePatterns: [
+    `node_modules/(?!${[
+      'node-fetch',
+      'fetch-blob',
+      'data-uri-to-buffer',
+      'jest-runtime',
+      'formdata-polyfill',
+      '@wagmi',
+    ].join('|')})`,
+  ],
   moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you soon)
     '^@/(.*)$': '<rootDir>/src/$1',
